@@ -1,0 +1,598 @@
+/* ===========================
+   Variables & base
+   =========================== */
+
+:root {
+    --color-bg: #05060a;
+    --color-surface: #10111a;
+    --color-surface-soft: #171926;
+    --color-surface-strong: #1f2232;
+    --color-accent: #ff7a3c;
+    --color-accent-soft: #f2c18f;
+    --color-accent-alt: #c64182;
+    --color-text-main: #f5f4f7;
+    --color-text-muted: #b0b2c2;
+    --color-border-subtle: #272b38;
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.25rem;
+
+    --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+
+    --font-title: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    --container-width: 1120px;
+    --transition-fast: 0.18s ease-out;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    line-height: 1.6;
+}
+
+/* ===========================
+   Utils
+   =========================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section {
+    padding: 4.5rem 0;
+}
+
+.section-header {
+    text-align: left;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    margin: 0 0 0.75rem;
+}
+
+.section-intro {
+    margin: 0;
+    color: var(--color-text-muted);
+    max-width: 680px;
+}
+
+.narrow-copy {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* Skip link accessibilité */
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0.75rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-accent);
+    color: #000;
+    z-index: 10000;
+    border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+    left: 0.75rem;
+}
+
+/* ===========================
+   Header & navigation
+   =========================== */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    backdrop-filter: blur(12px);
+    background: linear-gradient(to bottom, rgba(8, 8, 12, 0.98), rgba(8, 8, 12, 0.9));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    gap: 1.25rem;
+}
+
+.logo a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 52px;
+    width: auto;
+    display: block;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 0.15rem;
+    transition: color var(--transition-fast);
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-alt));
+    transition: width var(--transition-fast);
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+    color: var(--color-text-main);
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+    width: 100%;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ===========================
+   Boutons
+   =========================== */
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
+    color: #241313;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text-main);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ===========================
+   Hero
+   =========================== */
+
+.hero {
+    padding: 4.5rem 0 4rem;
+    background:
+        radial-gradient(circle at top right, rgba(198, 65, 130, 0.35), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(255, 122, 60, 0.35), transparent 60%),
+        linear-gradient(to bottom, #05060a, #05060a);
+}
+
+.hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+    align-items: center;
+    gap: 3.25rem;
+}
+
+.hero-surtitle {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+    margin: 0 0 0.75rem;
+}
+
+.hero h1 {
+    font-family: var(--font-title);
+    font-size: clamp(2.4rem, 3vw, 3rem);
+    margin: 0 0 0.75rem;
+}
+
+.hero-baseline {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.hero-intro {
+    margin: 0 0 1.75rem;
+    color: var(--color-text-muted);
+    max-width: 640px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+}
+
+.hero-visuel {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-photo-placeholder {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(135deg, rgba(198, 65, 130, 0.4), rgba(255, 122, 60, 0.5)),
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 85%, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1));
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===========================
+   Cartes d'offres
+   =========================== */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+}
+
+.card-offre {
+    background:
+        radial-gradient(circle at top left, rgba(255, 122, 60, 0.22), transparent 55%),
+        var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem 1.6rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.card-header {
+    margin-bottom: 1.25rem;
+}
+
+.card-surtitle {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.3rem;
+}
+
+.card-header h3 {
+    margin: 0 0 0.55rem;
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+}
+
+.card-baseline {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.card-body h4 {
+    margin: 0.75rem 0 0.35rem;
+    font-size: 1rem;
+    font-family: var(--font-title);
+}
+
+.card-body p {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+.card-footer {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+
+.card-prix {
+    margin: 0;
+    font-size: 0.98rem;
+}
+
+/* ===========================
+   FAQ
+   =========================== */
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.faq-item h3 {
+    font-family: var(--font-title);
+    margin: 0 0 0.35rem;
+}
+
+.faq-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+/* ===========================
+   Réservation / contact
+   =========================== */
+
+.section-reservation {
+    background: radial-gradient(circle at top center, rgba(198, 65, 130, 0.25), transparent 60%);
+}
+
+.reservation-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
+    gap: 2rem;
+}
+
+.reservation-contact,
+.reservation-form {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-soft);
+}
+
+.reservation-contact h3,
+.reservation-form h3 {
+    margin-top: 0;
+    font-family: var(--font-title);
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li + li {
+    margin-top: 0.5rem;
+}
+
+.contact-list a {
+    color: var(--color-text-main);
+    text-decoration-color: rgba(255, 255, 255, 0.35);
+}
+
+.contact-list a:hover {
+    text-decoration-color: rgba(255, 255, 255, 0.8);
+}
+
+.fs-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fs-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.fs-field label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.fs-field input,
+.fs-field textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.fs-field input:focus-visible,
+.fs-field textarea:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+    border-color: var(--color-accent);
+}
+
+.fs-submit {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+}
+
+/* ===========================
+   Localisation
+   =========================== */
+
+.section-localisation {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.localisation-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.5fr);
+    gap: 2rem;
+}
+
+.zones {
+    font-family: var(--font-title);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+}
+
+.localisation-note p {
+    color: var(--color-text-muted);
+}
+
+/* ===========================
+   Footer
+   =========================== */
+
+.site-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #040409;
+    padding: 1.5rem 0;
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.footer-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-nav a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-nav a:hover {
+    color: var(--color-text-main);
+}
+
+/* ===========================
+   Responsivité
+   =========================== */
+
+@media (max-width: 960px) {
+    .hero-inner {
+        grid-template-columns: minmax(0, 1.2fr);
+    }
+
+    .hero-visuel {
+        display: none;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reservation-grid,
+    .localisation-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+    .header-inner {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .main-nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .btn-header {
+        margin-left: auto;
+    }
+
+    .section {
+        padding: 3.5rem 0;
+    }
+
+    .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card-offre {
+        padding: 1.5rem 1.35rem 1.4rem;
+    }
+
+    .logo-img {
+        height: 42px;
+    }
+}
